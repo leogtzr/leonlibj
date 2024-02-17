@@ -5,12 +5,9 @@ import jakarta.persistence.GenerationType;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Transient;
 
 
-// An image by book:
 @Entity
 public class BookImageInfo {
     

@@ -20,6 +20,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import java.sql.SQLException;
 
 @Controller
@@ -37,13 +40,14 @@ public class InfoBookController {
     private BookService bookService;
 
     @GetMapping("/book_info")
-    public ModelAndView bookInfo(@RequestParam(value = "id", required = false, defaultValue = "0") int id) throws SQLException {
+    public ModelAndView bookInfo(@RequestParam(value = "id", required = false, defaultValue = "0") int id, final HttpServletRequest request) throws SQLException {
         logger.info(String.format("debug:x id=%d", id));
 
         final long bookCount = bookRepository.count();
 
         final Optional<Book> book = bookService.findBookById(Long.valueOf(id));
         if (book.isEmpty()) {
+            logger.info("debug:x Here 1");
             final ModelAndView errorView = new ModelAndView("error", HttpStatus.BANDWIDTH_LIMIT_EXCEEDED);
             setCommonViewAttributes(errorView, bookCount);
             

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
     "com.leonlib.config",
     "com.leonlib.controller",
     "com.leonlib.db",
+    "com.leonlib.rest",
     "com.leonlib.service"
 })
 @EnableJpaRepositories("com.leonlib.repository")

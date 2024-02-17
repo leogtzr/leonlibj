@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS book_likes (
-	like_id INTEGER PRIMARY KEY,
+	id INTEGER PRIMARY KEY,
 	book_id INTEGER REFERENCES books(id),
 	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	user_id VARCHAR(500) REFERENCES users(user_id),
@@ -34,5 +34,3 @@ CREATE INDEX IF NOT EXISTS idx_books_title ON books (title);
 CREATE INDEX IF NOT EXISTS idx_books_author ON books (author);
 CREATE INDEX IF NOT EXISTS idx_books_added_on ON books (added_on);
 CREATE INDEX IF NOT EXISTS idx_book_images_book_id ON book_images (book_id);
-
--- ALTER TABLE book_images ALTER COLUMN image BLOB;

@@ -3,7 +3,7 @@ package com.leonlib.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import javax.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.AssertTrue;
 import org.springframework.validation.annotation.Validated;
 import static org.springframework.util.StringUtils.hasText;
 
@@ -21,12 +21,12 @@ public class AppConfig {
     }
 
     @AssertTrue
-    boolean isMainAppUserValid() {
+    public boolean isMainAppUserValid() {
         return isValid(this.mainAppUser);
     }
 
     @AssertTrue
-    boolean isCaptchaSiteKeyValid() {
+    public boolean isCaptchaSiteKeyValid() {
         return isValid(this.captchaSiteKey);
     }
 
@@ -47,7 +47,5 @@ public class AppConfig {
     public void setCaptchaSiteKey(final String captchaSiteKey) {
         this.captchaSiteKey = captchaSiteKey;
     }
-
-    
     
 }

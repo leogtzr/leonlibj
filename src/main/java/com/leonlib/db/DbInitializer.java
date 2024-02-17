@@ -9,10 +9,6 @@ import org.springframework.core.io.ResourceLoader;
 import javax.annotation.PostConstruct;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import com.moandjiezana.toml.Toml;
 
 import com.leonlib.model.Book;
-import com.leonlib.model.BookImageInfo;
 import com.leonlib.repository.BookImagesRepository;
 import com.leonlib.repository.BookRepository;
 
@@ -39,9 +34,6 @@ public class DbInitializer {
 
     @Autowired
     private BookRepository bookRepository;
-
-    @Autowired
-    private ResourceLoader resourceLoader;
 
     @PostConstruct
     @SuppressWarnings("unchecked")
@@ -61,11 +53,8 @@ public class DbInitializer {
                 
                 entity.setImageNames((List<String>) book.get("imageNames"));
                 entity.setAddedOn(String.valueOf(book.get("addedOn")));
-                //logger.info(String.format("debug:x (%s)", entity.getImageNames()));
-                //logger.info(String.format("debug:x saving=(%s)", entity));
-
+                
                 bookRepository.save(entity);
-                addImagesToBook(entity);
             }
             logger.info("data.toml read and processed successfully.");
             final long count = bookRepository.count();
@@ -74,29 +63,4 @@ public class DbInitializer {
             logger.error("Error reading data.toml: " + e.getMessage());
         }
     }
-
-    private void addImagesToBook(final Book book) throws IOException {
-        // logger.info(String.format("%d images=(%s)", book.getId(), String.join(", ", book.getImageNames())));
-
-        final String imagesDirectoryPath = "classpath:/images/";
-
-        for (final String imageName : book.getImageNames()) {
-            final Resource resource = resourceLoader.getResource(imagesDirectoryPath + imageName);
-
-            if (resource.exists()) {
-                final Path imagePath = Paths.get(resource.getURI());
-                // final byte[] imageBytes = Files.readAllBytes(imagePath);
-
-                final BookImageInfo bookImageInfo = new BookImageInfo();
-                
-                bookImageInfo.setBookId(book.getId());
-                //bookImageInfo.setImage(imageBytes);
-
-                bookImagesRepository.save(bookImageInfo);
-            } else {
-                logger.warn(String.format("%s does not exist, skipping loading", resource));
-            }
-        }
-    }
-
 }
