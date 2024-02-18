@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.leonlib.config.AppConfig;
 import com.leonlib.repository.BookRepository;
 import com.leonlib.service.AuthService;
+import com.leonlib.utils.ModelAttributesHelper;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -27,26 +29,19 @@ public class HomeController {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private AppConfig appConfig;
+
     @GetMapping("/")
     String home(final Model model, final HttpServletRequest request) throws SQLException {
-        logger.info("debug:x I am here after login");
         final HttpSession session = request.getSession();
 
-        final Object sub = session.getAttribute("sub");
-        boolean loggedIn = false;
-        if (sub == null) {
-            logger.info("debug:x User might not be logged in");
-            model.addAttribute("loggedIn", false);
-        } else {
-            logger.info("debug:x User IS logged in");
-            final String subValue = (String) sub;
-
-            logger.info(String.format("debug:x sub=(%s)", subValue));
-            model.addAttribute("loggedIn", true);
-        }
+        ModelAttributesHelper.setLoggedInAttributesInModel(model, session);
 
         model.addAttribute("year", LocalDate.now().getYear());
         model.addAttribute("booksCount", bookRepository.count());
+
+        model.addAttribute("siteKey", appConfig.getCaptchaSiteKey());
 
         return "index";
     }

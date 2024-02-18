@@ -73,9 +73,8 @@ public class AuthController {
 
             final HttpSession session = request.getSession();
             final Map<String, Claim> claims = jwt.getClaims();
+            // Hacer algo con la información del usuario, como almacenarla en una sesión, etc. (Redis)
             authService.setAuthAttributes(claims, session);
-
-            // Hacer algo con la información del usuario, como almacenarla en una sesión, etc.
             logger.info(String.format("debug:x :) yeiii! userId=(%s), email=(%s)", userId, userEmail));
 
             return "redirect:/";
@@ -85,6 +84,5 @@ public class AuthController {
             return "redirect:/error";
         }
     }
-
     
 }

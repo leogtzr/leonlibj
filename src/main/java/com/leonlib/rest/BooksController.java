@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.leonlib.repository.BookLikeRepository;
 import com.leonlib.repository.BookRepository;
 
 @RestController
@@ -21,6 +22,9 @@ public class BooksController {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private BookLikeRepository bookLikeRepository;
     
     @GetMapping("/booksCount")
     public long booksCount() {
@@ -28,8 +32,9 @@ public class BooksController {
     }
 
     @GetMapping("/likes_count")
-    public Map<String, Integer> likesCountByUser(@RequestParam("book_id") final Long bookId) {
-        return Map.of("count", 1);
+    public Map<String, Integer> likesCountByUser(@RequestParam("book_id") final Integer bookId) {
+        final int count = bookLikeRepository.countByBookId(bookId);
+        return Map.of("count", count);
     }
 
 }
