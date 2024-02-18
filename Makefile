@@ -12,7 +12,7 @@ clean:
 	rm -rf ./target/
 
 test:
-	go test
+	mvn test
 
 check:
 	go test

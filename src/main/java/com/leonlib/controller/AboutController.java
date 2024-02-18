@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.leonlib.config.AppConfig;
 import com.leonlib.repository.BookRepository;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -25,11 +25,12 @@ public class AboutController {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
     private final AppConfig appConfig;
 
     @Autowired
     public AboutController(final AppConfig appConfig) {
-        this.appConfig = appConfig;
+       this.appConfig = appConfig;
     }
 
     @GetMapping("/about")
@@ -37,7 +38,7 @@ public class AboutController {
         final HttpSession session = request.getSession();
         session.setAttribute("user-aid", "El Leo ID");
 
-        logger.info(String.format("debug:x the main user is: (%s)", appConfig.getMainAppUser()));
+        //logger.info(String.format("debug:x the main user is: (%s)", appConfig.getMainAppUser()));
 
         model.addAttribute("year", LocalDate.now().getYear());
         model.addAttribute("booksCount", bookRepository.count());

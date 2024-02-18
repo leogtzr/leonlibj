@@ -1,5 +1,6 @@
 package com.leonlib.controller;
 
+import com.leonlib.config.AppConfig;
 import com.leonlib.model.Book;
 
 import java.util.ArrayList;
@@ -30,9 +31,12 @@ public class AllBooksController {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private AppConfig appConfig;
+
     private void setUpPaginationFor(final int page, final long totalBooks, final Model model) {
         model.addAttribute("year", LocalDate.now().getYear());
-        model.addAttribute("siteKey", "TODO: pending");
+        model.addAttribute("siteKey", appConfig.getCaptchaSiteKey());
         
         final int totalPages = (int) Math.ceil(totalBooks / numberOfResultsByPage);
         
@@ -66,7 +70,6 @@ public class AllBooksController {
         }
     
         model.addAttribute("pages", pages);
-        
         model.addAttribute("startPage", start);
         model.addAttribute("endPage", end);
     }

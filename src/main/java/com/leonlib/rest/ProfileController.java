@@ -3,13 +3,13 @@ package com.leonlib.rest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class ProfileController {
-    
-    @GetMapping("/login")
+        
+    @GetMapping("/loginX")
     public String login(final HttpServletRequest request) {
         final HttpSession session = request.getSession();
 
