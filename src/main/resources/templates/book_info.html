@@ -187,7 +187,7 @@
                         </div>
                     </div>
 
-                    <div id="captcha-container" data-sitekey="{{$siteKey}}" style="display:none;"></div>
+                    <div id="captcha-container" th:data-sitekey="${siteKey}" style="display:none;"></div>
 
                     <div class="like-section">
                         <form th:id="'like-form-' + ${book.id}" class="like-form" th:data-book-id="${book.id}" action="/api/like" method="post">

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.leonlib.config.AppConfig;
 import com.leonlib.model.Book;
 import com.leonlib.model.BookSearchType;
 import com.leonlib.repository.BookRepository;
@@ -25,26 +26,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class SearchController {
 
+    private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
+
     @Autowired
     private BookRepository bookRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
-    /*
-     * func uniqueSearchTypes(searchTypes []string) []string {
-	set := make(map[string]struct{})
-	var result []string
-
-	for _, item := range searchTypes {
-		if _, exists := set[item]; !exists {
-			set[item] = struct{}{}
-			result = append(result, item)
-		}
-	}
-
-	return result
-}
-     */
+    @Autowired
+    private AppConfig appConfig;
 
     private List<String> uniqueSearchTypes(String[] searchTypes) {
         return Arrays.stream(searchTypes)
@@ -71,7 +59,6 @@ public class SearchController {
                 logger.info(String.format("debug:x (by title) found=(%s)", booksByTitle));
 
                 booksByTitle.forEach(bookResults::add);
-                //  pending
                 break;
                 
                 case ByAuthor:
@@ -93,6 +80,7 @@ public class SearchController {
         }
 
         final ModelAndView model = new ModelAndView("search_books");
+        model.addObject("siteKey", appConfig.getCaptchaSiteKey());
         ModelAttributesHelper.setCommonViewAttributes(model, this.bookRepository.count());
         model.addObject("results", bookResults);
 

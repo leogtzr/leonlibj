@@ -1,5 +1,6 @@
 package com.leonlib.controller;
 
+import com.leonlib.config.AppConfig;
 import com.leonlib.model.Book;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.leonlib.repository.BookImagesRepository;
 import com.leonlib.repository.BookRepository;
 import com.leonlib.service.BookService;
+import com.leonlib.utils.ModelAttributesHelper;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -34,10 +36,10 @@ public class InfoBookController {
     private BookRepository bookRepository;
 
     @Autowired
-    private BookImagesRepository bookImagesRepository;
+    private BookService bookService;
 
     @Autowired
-    private BookService bookService;
+    private AppConfig appConfig;
 
     @GetMapping("/book_info")
     public ModelAndView bookInfo(@RequestParam(value = "id", required = false, defaultValue = "0") int id, final HttpServletRequest request) throws SQLException {
@@ -46,25 +48,22 @@ public class InfoBookController {
         final Optional<Book> book = bookService.findBookById(Long.valueOf(id));
         if (book.isEmpty()) {
             final ModelAndView errorView = new ModelAndView("error", HttpStatus.BAD_REQUEST);
-            setCommonViewAttributes(errorView, bookCount);
+            ModelAttributesHelper.setCommonViewAttributes(errorView, bookCount);
             
             return errorView;
         }
 
-        final ModelAndView model = new ModelAndView("book_info");
         final Book bookToDisplay = book.get();
         logger.info(String.format("debug:x book=(%s)", bookToDisplay));
-        setCommonViewAttributes(model, bookCount);
+
+        final ModelAndView model = new ModelAndView("book_info");
+        model.addObject("siteKey", appConfig.getCaptchaSiteKey());
+        ModelAttributesHelper.setCommonViewAttributes(model, bookCount);
 
         logger.info(String.format("debug:x book=(%s), model=(%s)", book, model));
 
         model.addObject("results", List.of(bookToDisplay));
 
         return model;
-    }
-
-    private void setCommonViewAttributes(final ModelAndView view, final long bookCount) {
-        view.addObject("booksCount", bookCount);
-        view.addObject("year", LocalDate.now().getYear());
     }
 }
