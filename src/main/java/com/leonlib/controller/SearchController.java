@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,8 +84,11 @@ public class SearchController {
                 case Unknown:
                     logger.info("error: search unknown");
 
-                    // TODO: pending redirection... redirectToErrorPageWithMessageAndStatusCode(w, "Wrong search", http.StatusInternalServerError)
-
+                    final ModelAndView errorView = new ModelAndView("error", HttpStatus.BAD_REQUEST);
+                    errorView.addObject("errorMessage", "Search type unknown");
+                    ModelAttributesHelper.setCommonViewAttributes(errorView, this.bookRepository.count());
+                    
+                    return errorView;
             }
         }
 

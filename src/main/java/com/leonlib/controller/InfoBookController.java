@@ -41,20 +41,17 @@ public class InfoBookController {
 
     @GetMapping("/book_info")
     public ModelAndView bookInfo(@RequestParam(value = "id", required = false, defaultValue = "0") int id, final HttpServletRequest request) throws SQLException {
-        logger.info(String.format("debug:x id=%d", id));
-
         final long bookCount = bookRepository.count();
 
         final Optional<Book> book = bookService.findBookById(Long.valueOf(id));
         if (book.isEmpty()) {
-            logger.info("debug:x Here 1");
-            final ModelAndView errorView = new ModelAndView("error", HttpStatus.BANDWIDTH_LIMIT_EXCEEDED);
+            final ModelAndView errorView = new ModelAndView("error", HttpStatus.BAD_REQUEST);
             setCommonViewAttributes(errorView, bookCount);
             
             return errorView;
         }
 
-        final ModelAndView model = new ModelAndView("book_info");   
+        final ModelAndView model = new ModelAndView("book_info");
         final Book bookToDisplay = book.get();
         logger.info(String.format("debug:x book=(%s)", bookToDisplay));
         setCommonViewAttributes(model, bookCount);
