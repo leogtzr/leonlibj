@@ -70,5 +70,4 @@ public class InfoBookController {
         view.addObject("booksCount", bookCount);
         view.addObject("year", LocalDate.now().getYear());
     }
-
 }

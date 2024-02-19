@@ -27,8 +27,6 @@ public class ContactController {
 
     @GetMapping("/contact")
     String contact(final Model model) throws SQLException {
-        //logger.info(String.format("debug:x the main user is: (%s)", appConfig.getMainAppUser()));
-
         model.addAttribute("year", LocalDate.now().getYear());
         model.addAttribute("booksCount", bookRepository.count());
 

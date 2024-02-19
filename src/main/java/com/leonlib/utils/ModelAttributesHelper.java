@@ -4,6 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.time.LocalDate;
+
 import javax.servlet.http.HttpSession;
 
 public final class ModelAttributesHelper {
@@ -27,5 +31,9 @@ public final class ModelAttributesHelper {
             model.addAttribute("loggedIn", true);
         }
     }
-    
+
+    public static void setCommonViewAttributes(final ModelAndView view, final long bookCount) {
+        view.addObject("booksCount", bookCount);
+        view.addObject("year", LocalDate.now().getYear());
+    }
 }

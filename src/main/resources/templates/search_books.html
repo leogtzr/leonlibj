@@ -123,29 +123,54 @@
     <section class="mt-3 mb-3">
         <div class="container search-container">
             <div class="results-list mt-5">
-                {{range .Results}}
-                    <div class="result-item border p-3 mb-3">
-                        <h3 class="book-title"><a href="book_info?id={{.ID}}">{{.Title}}</a> by <em>{{.Author}}</em></h3>
-                    {{if .Description}}
-                        <h4 class="book-title">{{.Description}}</h4>
-                    {{end}}
+                <div th:each="book : ${results}" class="result-item border p-3 mb-3">
+                    <h4 class="book-title"><span th:href="@{'book_info?id=' + ${book.id}}" th:text="${book.title}"></span> by <em th:text="${book.author}"></em></h4>
+                    <h5 class="book-title" th:if="${book.description}" th:text="${book.description}"></h5>
 
-                    {{if .HasBeenRead}}
-                        <h4 clas="book-beenread"><span class="badge badge-info">Ya</span> lo leí</h4>
-                    {{else}}
-                        <h4 clas="book-beenread"><span class="badge badge-info">No</span> lo he leído</h4>
-                    {{end}}
+                    <h5 class="book-beenread" th:if="${book.hasBeenRead}">
+                        <span class="badge badge-info">Ya</span> lo leí
+                    </h5>
+                    <h5 class="book-beenread" th:unless="${book.hasBeenRead}">
+                        <span class="badge badge-info">No</span> lo he leído
+                    </h5>
+                    <h5>
+                        Añadido el <span class="badge badge-info" th:text="${book.addedOn}"></span>
+                    </h5>
 
-                        <h4>Añadido el <span class="badge badge-info">{{.AddedOn}}</span></h4>
-
-<!--                        <div class="like-section">-->
-<!--                            <span role="img" aria-label="like" class="like-emoji" data-book-id="{{.ID}}" data-toggle="tooltip" data-original-title="Dar like">👍</span>-->
-<!--                            <span class="badge badge-primary ml-2" data-book-id="{{.ID}}">0</span>-->
-<!--                            <div class="error-modal">Error del servidor. Por favor, inténtalo de nuevo.</div>-->
-<!--                            <div class="info-modal"></div>-->
-<!--                        </div>-->
+                    <div th:each="image, imgIndex : ${book.imageNames}">
+                        <img th:src="@{'/images/' + ${image}}" th:alt="${book.title}" class="img-thumbnail" data-toggle="modal" th:data-target="'#imageModal-' + ${book.id} + '-' + ${imgIndex.index}">
+                        <div class="modal fade" th:id="'imageModal-' + ${book.id} + '-' + ${imgIndex.index}" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel-${book.id}-${imgIndex.index}" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" th:text="${book.title}"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img th:src="@{'/images/' + ${image}}" th:alt="${book.title}" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-            {{end}}
+
+                    <div id="captcha-container" data-sitekey="{{$siteKey}}" style="display:none;"></div>
+
+                    <div class="like-section">
+                        <form th:id="'like-form-' + ${book.id}" class="like-form" th:data-book-id="${book.id}" action="/api/like" method="post">
+                            <button type="submit" class="like-button" style="display:none;"></button>
+                        </form>
+                        <span role="img" aria-label="like" class="like-emoji" th:data-book-id="${book.id}" data-toggle="tooltip" data-original-title="Dar like">👍</span>
+                        <span class="badge badge-counter ml-2" th:data-book-id="${book.id}">0</span>
+                        <div th:if="${book.hasBeenRead}">
+                            <span role="img" aria-label="settings" class="gear-emoji" data-toggle="tooltip" data-original-title="Configurar"><a href="/admin/modify?book_id={{$book.ID}}">⚙</a>️</span>
+                        </div>
+                        <div class="error-modal">Error del servidor. Por favor, inténtalo de nuevo.</div>
+                        <div class="info-modal"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -163,10 +188,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-6 text-left text-white">
-                    Libros en la base de datos: <span id="booksCount">12345</span>
+                    Libros en la base de datos: <span th:text="${booksCount}">12345</span>
                 </div>
                 <div class="col-6 text-right text-white">
-                    © {{.Year}} leonlib
+                    <span th:text="'© ' + ${year} + ' leonlib'"></span>
                 </div>
             </div>
         </div>
@@ -179,7 +204,7 @@
     <!-- jQuery UI for Autocomplete -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="assets/script.js"></script>
+    <script th:src="@{/js/script.js}"></script>
 </body>
 
 </html>

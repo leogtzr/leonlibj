@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     async function loadLikesForBook(bookID) {
         try {
-            console.log('Trying to like: ' + bookID);
+            console.log('Getting likes count for: ' + bookID);
             const response = await $.get(`/api/likes_count?book_id=${bookID}`);
             if (typeof response === 'object' && response.hasOwnProperty('count')) {
                 return response.count;

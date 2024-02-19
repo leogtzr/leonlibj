@@ -18,6 +18,7 @@ public class AppConfig {
     private String authClientId;
     private String authClientSecret;
     private String authCallbackURL;
+    private String mode;
     
     private boolean isValid(final String property) {
         return hasText(property) && 
@@ -54,6 +55,11 @@ public class AppConfig {
         return isValid(this.authCallbackURL);
     }
 
+    @AssertTrue
+    public boolean isModeValid() {
+        return isValid(this.mode);
+    }
+
     @Bean
     public String getMainAppUser() {
         return mainAppUser;
@@ -84,6 +90,11 @@ public class AppConfig {
         return this.authCallbackURL;
     }
 
+    @Bean
+    public String getMode() {
+        return this.mode;
+    }
+
     public void setMainAppUser(final String mainAppUser) {
         this.mainAppUser = mainAppUser;
     }
@@ -106,5 +117,9 @@ public class AppConfig {
 
     public void setAuthCallbackURL(final String authCallbackURL) {
         this.authCallbackURL = authCallbackURL;
+    }
+
+    public void setMode(final String mode) {
+        this.mode = mode;
     }
 }
