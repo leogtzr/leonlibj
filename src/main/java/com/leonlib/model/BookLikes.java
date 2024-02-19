@@ -1,6 +1,5 @@
 package com.leonlib.model;
 
-// import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -9,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "book_likes")
@@ -21,15 +22,14 @@ public class BookLikes {
     @Column(name = "book_id")
     private Integer bookId;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "user_id")
     private String userId;
 
-    // Constructor, getters, and setters
     public BookLikes() {
-        // Default constructor
     }
 
     public BookLikes(Integer bookId, String userId) {

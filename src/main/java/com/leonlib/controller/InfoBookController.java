@@ -54,7 +54,7 @@ public class InfoBookController {
             return errorView;
         }
 
-        final ModelAndView model = new ModelAndView("book_info");
+        final ModelAndView model = new ModelAndView("book_info");   
         final Book bookToDisplay = book.get();
         logger.info(String.format("debug:x book=(%s)", bookToDisplay));
         setCommonViewAttributes(model, bookCount);
