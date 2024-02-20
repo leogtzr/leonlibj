@@ -67,7 +67,6 @@ public class AuthController {
                 .handle(request, response);
             final DecodedJWT jwt = JWT.decode(tokens.getIdToken());
             
-            // Maneja la información del usuario, por ejemplo:
             final String userId = jwt.getSubject();
             final String userEmail = jwt.getClaim("email").asString();
 
