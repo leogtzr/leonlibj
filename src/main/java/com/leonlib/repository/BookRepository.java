@@ -17,6 +17,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("SELECT b FROM Book b WHERE LOWER(b.title) LIKE %:title% ORDER BY b.title")
     List<Book> findByTitleContaining(@Param("title") String title);
 
-    @Query("SELECT b FROM Book b WHERE LOWER(b.author) LIKE %:author% ORDER BY b.title")
+    @Query("SELECT b FROM Book b WHERE LOWER(b.author) LIKE LOWER(concat('%', :author, '%')) ORDER BY b.title")
     List<Book> findByAuthorContaining(@Param("author") String author);
+
+    @Query(value = "SELECT DISTINCT b.author FROM Book b ORDER BY b.author")
+    List<String> findAllDistinctAuthors();
 }

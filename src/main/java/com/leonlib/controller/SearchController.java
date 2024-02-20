@@ -56,16 +56,14 @@ public class SearchController {
             switch (searchType) {
                 case ByTitle:
                 final List<Book> booksByTitle = this.bookRepository.findByTitleContaining(bookQuery);
-                logger.info(String.format("debug:x (by title) found=(%s)", booksByTitle));
-
                 booksByTitle.forEach(bookResults::add);
+
                 break;
                 
                 case ByAuthor:
                 final List<Book> booksByAuthor = this.bookRepository.findByAuthorContaining(bookQuery);
-                logger.info(String.format("debug:x (by author) found=(%s)", booksByAuthor));
-
                 booksByAuthor.forEach(bookResults::add);
+
                 break;
 
                 case Unknown:
@@ -81,8 +79,9 @@ public class SearchController {
 
         final ModelAndView model = new ModelAndView("search_books");
         model.addObject("siteKey", appConfig.getCaptchaSiteKey());
-        ModelAttributesHelper.setCommonViewAttributes(model, this.bookRepository.count());
         model.addObject("results", bookResults);
+
+        ModelAttributesHelper.setCommonViewAttributes(model, this.bookRepository.count());
 
         return model;
     }

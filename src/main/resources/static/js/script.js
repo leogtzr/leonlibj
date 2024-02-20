@@ -237,7 +237,7 @@ $(document).ready(function() {
         if (author) {
             $("#booksList").empty();
             try {
-                const books = await $.get(`/api/books?start_with=${author}`);
+                const books = await $.get(`/api/books?author=${author}`);
                 console.log(books);
 
                 books.forEach(book => {

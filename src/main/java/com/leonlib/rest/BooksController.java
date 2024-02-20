@@ -1,5 +1,6 @@
 package com.leonlib.rest;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.leonlib.model.Book;
+import com.leonlib.model.BookDetail;
 import com.leonlib.repository.BookLikeRepository;
 import com.leonlib.repository.BookRepository;
 
@@ -68,7 +71,7 @@ public class BooksController {
 
     @PostMapping("/like")
     public void likeBook(@RequestParam("book_id") final Integer bookId, final HttpServletRequest request) {
-        HttpSession session = request.getSession();
+        final HttpSession session = request.getSession();
 
         if (session == null) {
             logger.info("user is unauthenticated");
@@ -103,6 +106,19 @@ public class BooksController {
 
         logger.info(String.format("unlike book %d", bookId));
         this.bookLikeRepository.unlikeByUser(bookId, sub);
+    }
+
+    @GetMapping("/books")
+    public List<BookDetail> books(@RequestParam("author") final String author) {
+
+        logger.info(String.format("debug:x query=(%s)", author));
+        final List<Book> booksByAuthor = this.bookRepository.findByAuthorContaining(author);
+        logger.info(String.format("debug:x /books (%d)", booksByAuthor.size()));
+        for (final Book book : booksByAuthor) {
+            logger.info(String.format("debug:x (%s)", book));
+        }
+
+        return List.of();
     }
 
 }

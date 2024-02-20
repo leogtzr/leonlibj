@@ -108,11 +108,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/contact">Contacto</a>
                 </li>
-                {{if not .LoggedIn}}
-                <li class="nav-item">
+                <li th:unless="${loggedIn}" class="nav-item">
                     <a class="nav-link" href="/ingresar">Ingresar</a>
                 </li>
-                {{end}}
             </ul>
         </div>
     </nav>
@@ -124,11 +122,11 @@
                     <form id="authorForm">
                         <div class="author-grid">
                             <ul>
-                                {{range .Authors}}
-                                    <li>
-                                        <label><input type="radio" name="author" value="{{.}}">{{.}}</label>
-                                    </li>
-                                {{end}}
+                                
+                                <li th:each="author : ${authors}">
+                                    <label><input type="radio" name="author" th:value="${author}" th:text="${author}"></label>
+                                </li>
+                                
                             </ul>
                         </div>
                     </form>
@@ -147,10 +145,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-6 text-left text-white">
-                    Libros en la base de datos: <span id="booksCount">12345</span>
+                    Libros en la base de datos: <span th:text="${booksCount}">12345</span>
                 </div>
                 <div class="col-6 text-right text-white">
-                    © {{.Year}} leonlib
+                    <span th:text="'© ' + ${year} + ' leonlib'"></span>
                 </div>
             </div>
         </div>
@@ -163,7 +161,7 @@
     <!-- jQuery UI for Autocomplete -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="assets/script.js"></script>
+    <script th:src="@{/js/script.js}"></script>
 </body>
 
 </html>
