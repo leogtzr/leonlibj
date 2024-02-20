@@ -20,19 +20,7 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    @Autowired
-    private BookImagesRepository bookImagesRepository;
-
     public Optional<Book> findBookById(final Long id) {
-        final Optional<Book> bookFromDB = bookRepository.findById(id);
-
-        bookFromDB.ifPresent(book -> {
-            logger.info(String.format("debug:x bookFound=(%s)", book));
-            bookImagesRepository.findByBookId(book.getId()).ifPresent(bookImages -> {
-                logger.info(String.format(String.format("debug:x img found")));
-            });
-        });
-
-        return bookFromDB;
+        return bookRepository.findById(id);
     }
 }

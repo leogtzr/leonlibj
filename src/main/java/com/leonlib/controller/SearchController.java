@@ -66,7 +66,7 @@ public class SearchController {
                 break;
 
                 case Unknown:
-                    logger.info("error: search unknown");
+                    logger.error("error: search unknown");
 
                     final ModelAndView errorView = new ModelAndView("error", HttpStatus.BAD_REQUEST);
                     errorView.addObject("errorMessage", "Search type unknown");

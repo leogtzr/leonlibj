@@ -54,13 +54,9 @@ public class InfoBookController {
         }
 
         final Book bookToDisplay = book.get();
-        logger.info(String.format("debug:x book=(%s)", bookToDisplay));
-
         final ModelAndView model = new ModelAndView("book_info");
         model.addObject("siteKey", appConfig.getCaptchaSiteKey());
         ModelAttributesHelper.setCommonViewAttributes(model, bookCount);
-
-        logger.info(String.format("debug:x book=(%s), model=(%s)", book, model));
 
         model.addObject("results", List.of(bookToDisplay));
 

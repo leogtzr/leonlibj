@@ -49,7 +49,7 @@ public class AuthController {
         .build();
     }
 
-    @GetMapping("/logeo")
+    @GetMapping("/ingresar")
     public String login(final HttpServletResponse response) {
         final HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         final String authorizeUrl = authenticationController
@@ -66,15 +66,11 @@ public class AuthController {
             final Tokens tokens = authenticationController
                 .handle(request, response);
             final DecodedJWT jwt = JWT.decode(tokens.getIdToken());
-            
-            final String userId = jwt.getSubject();
-            final String userEmail = jwt.getClaim("email").asString();
-
             final HttpSession session = request.getSession();
             final Map<String, Claim> claims = jwt.getClaims();
+            
             // Hacer algo con la información del usuario, como almacenarla en una sesión, etc. (Redis)
             authService.setAuthAttributes(claims, session);
-            logger.info(String.format("debug:x :) yeiii! userId=(%s), email=(%s)", userId, userEmail));
 
             return "redirect:/";
         } catch (final IdentityVerificationException ex) {

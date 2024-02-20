@@ -54,18 +54,15 @@ public class BooksController {
         HttpSession session = request.getSession();
 
         if (session == null) {
-            logger.info("user is unauthenticated");
             return Map.of("status", "unauthenticated");
         }
 
         final String sub = (String) session.getAttribute("sub");
         if (sub == null) {
-            logger.info("user is unauthenticated 2)");
             return Map.of("status", "unauthenticated");
         }
 
         final boolean hasBeenLiked = this.bookLikeRepository.likedBy(bookId, sub);
-        logger.info(String.format("debug:x user=(%s), hasBeenLiked=%b", sub, hasBeenLiked));
 
         return Map.of("status", hasBeenLiked ? "liked" : "not-liked");
     }
@@ -95,28 +92,22 @@ public class BooksController {
         final HttpSession session = request.getSession();
 
         if (session == null) {
-            logger.info("user is unauthenticated");
             return;
         }
 
         final String sub = (String) session.getAttribute("sub");
         if (sub == null) {
-            logger.info("user is unauthenticated 2)");
             return;
         }
 
-        logger.info(String.format("unlike book %d", bookId));
         this.bookLikeRepository.unlikeByUser(bookId, sub);
     }
 
     @GetMapping("/books")
     public List<BookDetail> books(@RequestParam("author") final String author) {
-        logger.info(String.format("debug:x query=(%s)", author));
-
         final List<BookDetail> results = new ArrayList<>();
 
         final List<Book> booksByAuthor = this.bookRepository.findByAuthorContaining(author);
-        logger.info(String.format("debug:x /books (%d)", booksByAuthor.size()));
 
         for (final Book book : booksByAuthor) {
             final BookDetail bookDetail = new BookDetail();
