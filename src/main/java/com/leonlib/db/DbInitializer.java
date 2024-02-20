@@ -44,7 +44,8 @@ public class DbInitializer {
             
             for (final Map<String, Object> book : books) {
                 final Book entity = new Book();
-                entity.setId((Long) book.get("id"));
+                final Long id = (Long) book.get("id");
+                entity.setId(id.intValue());
                 entity.setTitle((String) book.get("title"));
                 entity.setAuthor((String) book.get("author"));
                 entity.setDescription((String) book.get("description"));

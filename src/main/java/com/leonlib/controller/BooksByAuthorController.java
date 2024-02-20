@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.leonlib.repository.BookRepository;
+import com.leonlib.utils.ModelAttributesHelper;
 
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class BooksByAuthorController {
 
         final List<String> authors = bookRepository.findAllDistinctAuthors();
         view.addObject("authors", authors);
+
+        ModelAttributesHelper.setCommonViewAttributes(view, bookRepository.count());
 
         return view;
     }

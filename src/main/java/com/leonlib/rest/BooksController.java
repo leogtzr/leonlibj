@@ -1,5 +1,6 @@
 package com.leonlib.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -110,15 +111,25 @@ public class BooksController {
 
     @GetMapping("/books")
     public List<BookDetail> books(@RequestParam("author") final String author) {
-
         logger.info(String.format("debug:x query=(%s)", author));
+
+        final List<BookDetail> results = new ArrayList<>();
+
         final List<Book> booksByAuthor = this.bookRepository.findByAuthorContaining(author);
         logger.info(String.format("debug:x /books (%d)", booksByAuthor.size()));
+
         for (final Book book : booksByAuthor) {
-            logger.info(String.format("debug:x (%s)", book));
+            final BookDetail bookDetail = new BookDetail();
+            bookDetail.setId(book.getId());
+            bookDetail.setTitle(book.getTitle());
+            bookDetail.setAuthor(book.getAuthor());
+            bookDetail.setDescription(book.getDescription());
+
+            results.add(bookDetail);
+            // bookDetail.Base64Images = book.Base64Images
         }
 
-        return List.of();
+        return results;
     }
 
 }
