@@ -1,7 +1,7 @@
 # leonlib
 These are the books I own in my personal library
 
-![shelf](./assets/images/leonlib-shelfs.jpg)
+![shelf](./src/main/resources/static/assets/images/leonlib-shelfs.jpg)
 
 The objective of this simple application is to expose a way to explore the inventory of books I own.
 I confess that I have bought the same book multiple times due to not knowing that I already have it.
@@ -27,31 +27,31 @@ To run the application fully on Docker, use the `run_app.sh` script.
 
 ### Home Page
 
-![home page](./images/howitlooks/index.png)
+![home page](./src/main/resources/static/images/howitlooks/index.png)
 
 ### Searching a book
 
-![search](./images/howitlooks/search.png)
+![search](./src/main/resources/static/images/howitlooks/search.png)
 
 ### Books per author
 
-![books per author](./images/howitlooks/books_per_author.png)
+![books per author](./src/main/resources/static/images/howitlooks/books_per_author.png)
 
 ### Book Information
 
-![books per author](./images/howitlooks/book_info.png)
+![books per author](./src/main/resources/static/images/howitlooks/book_info.png)
 
 ### All the books
 
-![all books](./images/howitlooks/allbooks.png)
+![all books](./src/main/resources/static/images/howitlooks/allbooks.png)
 
 ### Add book
 
-![all books](./images/howitlooks/add_book.png)
+![all books](./src/main/resources/static/images/howitlooks/add_book.png)
 
 ### Authentication
 
 There is a simple Auth mechanism used to like any book in my library.
 
-![auth](./images/howitlooks/auth.png)
+![auth](./src/main/resources/static/images/howitlooks/auth.png)
 
