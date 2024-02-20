@@ -42,11 +42,11 @@ public class InfoBookController {
     private AppConfig appConfig;
 
     @GetMapping("/book_info")
-    public ModelAndView bookInfo(@RequestParam(value = "id", required = false, defaultValue = "0") int id, final HttpServletRequest request) throws SQLException {
+    public ModelAndView bookInfo(@RequestParam(value = "id", required = false, defaultValue = "0") Long id, final HttpServletRequest request) throws SQLException {
         final long bookCount = bookRepository.count();
 
-        final Optional<Book> book = bookService.findBookById(Long.valueOf(id));
-        if (book.isEmpty()) {
+        final Optional<Book> book = bookService.findBookById(id);
+        if (!book.isPresent()) {
             final ModelAndView errorView = new ModelAndView("error", HttpStatus.BAD_REQUEST);
             ModelAttributesHelper.setCommonViewAttributes(errorView, bookCount);
             

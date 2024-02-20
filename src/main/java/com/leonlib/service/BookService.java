@@ -1,12 +1,9 @@
 package com.leonlib.service;
 
 import com.leonlib.model.Book;
-import com.leonlib.model.BookImageInfo;
 import com.leonlib.repository.BookImagesRepository;
 import com.leonlib.repository.BookRepository;
 
-import java.util.Base64;
-import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -26,7 +23,7 @@ public class BookService {
     @Autowired
     private BookImagesRepository bookImagesRepository;
 
-    public Optional<Book> findBookById(final long id) {
+    public Optional<Book> findBookById(final Long id) {
         final Optional<Book> bookFromDB = bookRepository.findById(id);
 
         bookFromDB.ifPresent(book -> {

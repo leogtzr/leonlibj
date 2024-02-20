@@ -124,9 +124,9 @@ public class BooksController {
             bookDetail.setTitle(book.getTitle());
             bookDetail.setAuthor(book.getAuthor());
             bookDetail.setDescription(book.getDescription());
+            bookDetail.setImageNames(book.getImageNames());
 
             results.add(bookDetail);
-            // bookDetail.Base64Images = book.Base64Images
         }
 
         return results;

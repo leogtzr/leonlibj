@@ -238,14 +238,11 @@ $(document).ready(function() {
             $("#booksList").empty();
             try {
                 const books = await $.get(`/api/books?author=${author}`);
-                console.log(books);
-
                 books.forEach(book => {
                     let imagesHtml = '';
-                    if (book.images && book.images.length > 0) {
-                        console.log(book.images);
-                        book.images.forEach(image => {
-                            imagesHtml += `<img src="data:image/jpeg;base64,${image.Image}" class="card-img-bottom" alt="Image of ${book.title}">`;
+                    if (book.imageNames) {
+                        book.imageNames.forEach(image => {
+                            imagesHtml += `<img src="images/${image}" class="card-img-bottom" alt="Image of ${book.title}">`;
                         });
                     } else {
                         console.log('No images...');

@@ -3,17 +3,17 @@ package com.leonlib.model;
 import java.util.List;
 
 public class BookDetail {
-    private int id;
+    private Long id;
     private String title;
     private String author;
     private String description;
-    private List<BookImageInfo> images;
+    private List<String> imageNames;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(final int id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -41,17 +41,17 @@ public class BookDetail {
         this.description = description;
     }
 
-    public List<BookImageInfo> getImages() {
-        return images;
+    public List<String> getImageNames() {
+        return imageNames;
     }
-    
-    public void setImages(final List<BookImageInfo> images) {
-        this.images = images;
+
+    public void setImageNames(final List<String> imageNames) {
+        this.imageNames = imageNames;
     }
 
     @Override
     public String toString() {
         return "BookDetail [id=" + id + ", title=" + title + ", author=" + author + ", description=" + description
-                + ", images=" + images + "]";
+                + ", imageNames=" + imageNames + "]";
     }
 }
