@@ -1,6 +1,5 @@
 .DEFAULT_GOAL := build
 
-BIN_FILE=leonlib
 JAR_FILE=leonlibj-0.0.1-SNAPSHOT.jar
 
 build:
@@ -22,7 +21,7 @@ cover:
 	go tool cover -html=cp.out
 
 run:
-	java -jar "./target/${JAR_FILE}"
+	java -jar "./target/${JAR_FILE}" --spring.profiles.active=dev
 
 lint:
 	golangci-lint run --enable-all

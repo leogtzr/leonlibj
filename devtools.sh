@@ -6,7 +6,7 @@ readonly work_dir=$(dirname $(perl -e "use Cwd 'abs_path'; print abs_path('$0')"
 readonly jar_file_name='leonlibj-0.0.1-SNAPSHOT.jar'
 
 readonly option="${1}"
-readonly webapp_container_name="leonlib_app"
+readonly webapp_container_name="leonlibj_app"
 readonly error_wrong_option=81
 
 clean_containers() {
@@ -46,15 +46,15 @@ remove_unused_images() {
 
 case "${option}" in
     cls|clear)
-        # clean_containers
-        # clean_docker_images
-        # remove_unused_images
+        clean_containers
+        clean_docker_images
+        remove_unused_images
 
         rm -vf "${work_dir}/target/${jar_file_name}"
 
         ;;
     *)
-        echo "Unknown option: ${option}" 2>&1
+        echo "error: unknown option: ${option}" 2>&1
 
         exit ${error_wrong_option}
         ;;
