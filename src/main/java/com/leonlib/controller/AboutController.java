@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.leonlib.config.AppConfig;
 import com.leonlib.repository.BookRepository;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,14 +23,6 @@ public class AboutController {
 
     @Autowired
     private BookRepository bookRepository;
-
-    @Autowired
-    private final AppConfig appConfig;
-
-    @Autowired
-    public AboutController(final AppConfig appConfig) {
-       this.appConfig = appConfig;
-    }
 
     @GetMapping("/about")
     String about(final HttpServletRequest request, final Model model) throws SQLException {
