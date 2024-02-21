@@ -6,6 +6,9 @@ import com.leonlib.model.Book;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.leonlib.repository.BookRepository;
+import com.leonlib.utils.ModelAttributesHelper;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -44,7 +48,6 @@ public class AllBooksController {
         model.addAttribute("previousPage", page - 1);
         model.addAttribute("currentPage", page);
         model.addAttribute("nextPage", page + 1);
-        model.addAttribute("loggedIn", false);
         model.addAttribute("startPage", 1);
         model.addAttribute("endPage", totalPages);
     
@@ -75,8 +78,9 @@ public class AllBooksController {
     }
     
     @GetMapping("/allbooks")
-    String about(@RequestParam(value = "page", required = false, defaultValue = "0") int page, final Model model) throws SQLException {
+    String about(@RequestParam(value = "page", required = false, defaultValue = "0") int page, final Model model, final HttpServletRequest request) throws SQLException {
         final long bookCount = bookRepository.count();
+        final HttpSession session = request.getSession();
         
         model.addAttribute("booksCount", bookCount);
         model.addAttribute("year", LocalDate.now().getYear());
@@ -88,6 +92,7 @@ public class AllBooksController {
         model.addAttribute("results", results);
 
         this.setUpPaginationFor(page, bookCount, model);
+        ModelAttributesHelper.setLoggedInAttributesInModel(model, session);
 
         return "allbooks";
     }
