@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import com.moandjiezana.toml.Toml;
 
 import com.leonlib.model.Book;
-import com.leonlib.repository.BookImagesRepository;
 import com.leonlib.repository.BookRepository;
 
 @Configuration
@@ -27,9 +26,6 @@ public class DbInitializer {
 
     @Value("classpath:data.toml")
     private Resource dataToml;
-
-    @Autowired
-    private BookImagesRepository bookImagesRepository;
 
     @Autowired
     private BookRepository bookRepository;
