@@ -20,13 +20,8 @@ public final class ModelAttributesHelper {
 
     public static void setLoggedInAttributesInModel(final Model model, final HttpSession session) {
         final Object sub = session.getAttribute("sub");
-        if (sub == null) {
-            model.addAttribute("loggedIn", false);
-        } else {
-            final String subValue = (String) sub;
-
-            model.addAttribute("loggedIn", true);
-        }
+        
+        model.addAttribute("loggedIn", sub != null);
     }
 
     public static void setCommonViewAttributes(final ModelAndView view, final long bookCount) {
