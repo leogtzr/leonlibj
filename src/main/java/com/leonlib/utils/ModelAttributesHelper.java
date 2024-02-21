@@ -24,6 +24,12 @@ public final class ModelAttributesHelper {
         model.addAttribute("loggedIn", sub != null);
     }
 
+    public static void setLoggedInAttributesInModelAndView(final ModelAndView model, final HttpSession session) {
+        final Object sub = session.getAttribute("sub");
+        
+        model.addObject("loggedIn", sub != null);
+    }
+
     public static void setCommonViewAttributes(final ModelAndView view, final long bookCount) {
         view.addObject("booksCount", bookCount);
         view.addObject("year", LocalDate.now().getYear());

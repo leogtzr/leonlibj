@@ -9,6 +9,9 @@ import com.leonlib.utils.ModelAttributesHelper;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,13 +26,15 @@ public class BooksByAuthorController {
     private BookRepository bookRepository;
 
     @GetMapping("/books_by_author")
-    public ModelAndView booksByAuthor() {
+    public ModelAndView booksByAuthor(final HttpServletRequest request) {
         final ModelAndView view = new ModelAndView("books_by_author");
+        final HttpSession session = request.getSession();
 
         final List<String> authors = bookRepository.findAllDistinctAuthors();
         view.addObject("authors", authors);
 
         ModelAttributesHelper.setCommonViewAttributes(view, bookRepository.count());
+        ModelAttributesHelper.setLoggedInAttributesInModelAndView(view, session);
 
         return view;
     }

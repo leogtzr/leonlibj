@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.leonlib.config.AppConfig;
 import com.leonlib.repository.BookRepository;
+import com.leonlib.utils.ModelAttributesHelper;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ContactController {
@@ -26,9 +30,12 @@ public class ContactController {
     private AppConfig appConfig;
 
     @GetMapping("/contact")
-    String contact(final Model model) throws SQLException {
+    String contact(final Model model, final HttpServletRequest request) throws SQLException {
         model.addAttribute("year", LocalDate.now().getYear());
         model.addAttribute("booksCount", bookRepository.count());
+
+        final HttpSession session = request.getSession();
+        ModelAttributesHelper.setLoggedInAttributesInModel(model, session);
 
         return "contact";
     }

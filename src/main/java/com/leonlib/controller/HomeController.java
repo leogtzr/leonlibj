@@ -36,12 +36,11 @@ public class HomeController {
     String home(final Model model, final HttpServletRequest request) throws SQLException {
         final HttpSession session = request.getSession();
 
-        ModelAttributesHelper.setLoggedInAttributesInModel(model, session);
-
         model.addAttribute("year", LocalDate.now().getYear());
         model.addAttribute("booksCount", bookRepository.count());
-
         model.addAttribute("siteKey", appConfig.getCaptchaSiteKey());
+
+        ModelAttributesHelper.setLoggedInAttributesInModel(model, session);
 
         return "index";
     }

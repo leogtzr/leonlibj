@@ -44,6 +44,7 @@ public class InfoBookController {
     @GetMapping("/book_info")
     public ModelAndView bookInfo(@RequestParam(value = "id", required = false, defaultValue = "0") Long id, final HttpServletRequest request) throws SQLException {
         final long bookCount = bookRepository.count();
+        final HttpSession session = request.getSession();
 
         final Optional<Book> book = bookService.findBookById(id);
         if (!book.isPresent()) {
@@ -57,6 +58,7 @@ public class InfoBookController {
         final ModelAndView model = new ModelAndView("book_info");
         model.addObject("siteKey", appConfig.getCaptchaSiteKey());
         ModelAttributesHelper.setCommonViewAttributes(model, bookCount);
+        ModelAttributesHelper.setLoggedInAttributesInModelAndView(model, session);
 
         model.addObject("results", List.of(bookToDisplay));
 

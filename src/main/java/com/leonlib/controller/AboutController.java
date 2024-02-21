@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.leonlib.repository.BookRepository;
+import com.leonlib.utils.ModelAttributesHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,12 +28,13 @@ public class AboutController {
     @GetMapping("/about")
     String about(final HttpServletRequest request, final Model model) throws SQLException {
         final HttpSession session = request.getSession();
-        session.setAttribute("user-aid", "El Leo ID");
-
+        
         model.addAttribute("year", LocalDate.now().getYear());
         model.addAttribute("booksCount", bookRepository.count());
 
         model.addAttribute("numberOfBooks", ((bookRepository.count() / 100) + 1) * 100);
+
+        ModelAttributesHelper.setLoggedInAttributesInModel(model, session);
 
         return "about";
     }
