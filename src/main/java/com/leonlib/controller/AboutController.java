@@ -41,6 +41,8 @@ public class AboutController {
         model.addAttribute("year", LocalDate.now().getYear());
         model.addAttribute("booksCount", bookRepository.count());
 
+        model.addAttribute("numberOfBooks", ((bookRepository.count() / 100) + 1) * 100);
+
         return "about";
     }
 
