@@ -14,14 +14,8 @@ test:
 	mvn test
 
 check:
-	go test
-
-cover:
-	go test -coverprofile cp.out
-	go tool cover -html=cp.out
+	mvn test
 
 run:
 	java -jar "./target/${JAR_FILE}" --spring.profiles.active=dev
 
-lint:
-	golangci-lint run --enable-all

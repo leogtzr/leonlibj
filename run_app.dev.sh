@@ -11,9 +11,12 @@ export DB_MODE="sqlite"
 export PORT=8180
 export RUN_MODE="prod"
 
-if [[ "${1}" == "build" ]]; then
-    make
-fi
+case "${1}" in
+    b|build|make)
+        make
+
+        ;;
+esac
 
 docker-compose -f docker-compose.dev.yml up --build
 

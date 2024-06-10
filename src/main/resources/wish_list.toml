@@ -1,0 +1,63 @@
+[[book]]
+id = 1
+title = "Mitología: Todos los relatos griegos, latinos y nórdicos"
+author = "Edith Hamilton"
+description = ""
+imageLink = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1291755937i/9853407.jpg"
+goodreadsLink = "https://www.goodreads.com/book/show/9853407-mitolog-a?ac=1&from_search=true&qid=bOKXmh1aBl&rank=1"
+
+[[book]]
+id = 2
+title = "El arco iris de gravedad"
+author = "Thomas Pynchon"
+description = "La versión en español."
+imageLink = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1657594227i/415.jpg"
+goodreadsLink = "https://www.goodreads.com/book/show/415.Gravity_s_Rainbow?ac=1&from_search=true&qid=vvTUuwt21l&rank=1"
+
+[[book]]
+id = 3
+title = "Mason y Dixon"
+author = "Thomas Pynchon"
+description = ""
+imageLink = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1507450661i/277022.jpg"
+goodreadsLink = "https://www.goodreads.com/book/show/277022.Mason_y_Dixon?ac=1&from_search=true&qid=mFyx9EhFem&rank=2"
+
+[[book]]
+id = 4
+title = "Crafting Interpreters"
+author = "Robert Nystrom"
+description = ""
+imageLink = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1627644403i/58661468.jpg"
+goodreadsLink = "https://www.goodreads.com/book/show/58661468-crafting-interpreters?from_search=true&from_srp=true&qid=FJ398I71nn&rank=1"
+
+[[book]]
+id = 5
+title = "El juego del ángel"
+author = "Carlos Ruiz Zafón"
+description = ""
+imageLink = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1368196151i/17906284.jpg"
+goodreadsLink = "https://www.goodreads.com/book/show/17906284-el-juego-del-ngel?ac=1&from_search=true&qid=9ZsL29POnM&rank=1"
+
+[[book]]
+id = 6
+title = "El prisionero del cielo"
+author = "Carlos Ruiz Zafón"
+description = ""
+imageLink = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1327566623i/13094197.jpg"
+goodreadsLink = "https://www.goodreads.com/book/show/13094197-el-prisionero-del-cielo?ref=nav_sb_ss_1_23"
+
+[[book]]
+id = 7
+title = "El laberinto de los espíritus"
+author = "Carlos Ruiz Zafón"
+description = ""
+imageLink = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1472484895i/31700489.jpg"
+goodreadsLink = "https://www.goodreads.com/book/show/31700489-el-laberinto-de-los-esp-ritus?from_search=true&from_srp=true&qid=narOjFMmeL&rank=1"
+
+[[book]]
+id = 8
+title = "Los demonios"
+author = "Fedor Dostoievski"
+description = ""
+imageLink = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1410078500i/18622076.jpgw"
+goodreadsLink = "https://www.goodreads.com/book/show/18622076-los-demonios?ac=1&from_search=true&qid=rMwsOBZmLt&rank=2"

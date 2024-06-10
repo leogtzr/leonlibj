@@ -45,7 +45,7 @@ remove_unused_images() {
 }
 
 case "${option}" in
-    cls|clear)
+    cls|clear|clean)
         clean_containers
         clean_docker_images
         remove_unused_images
